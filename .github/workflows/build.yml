@@ -1,0 +1,99 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow the tag build to publish a Release with the .uf2 attached.
+permissions:
+  contents: write
+
+env:
+  PICO_SDK_VERSION: '2.3.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cmake gcc-arm-none-eabi build-essential \
+            libusb-1.0-0-dev pkg-config
+
+      - name: Cache Pico SDK
+        id: cache-sdk
+        uses: actions/cache@v4
+        with:
+          path: pico-sdk
+          key: pico-sdk-${{ env.PICO_SDK_VERSION }}
+
+      - name: Fetch Pico SDK (+ TinyUSB)
+        if: steps.cache-sdk.outputs.cache-hit != 'true'
+        run: |
+          git clone --branch "$PICO_SDK_VERSION" --depth 1 \
+            https://github.com/raspberrypi/pico-sdk.git pico-sdk
+          git -C pico-sdk submodule update --init --depth 1 lib/tinyusb
+
+      - name: Build firmware
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: |
+          cmake -S firmware -B firmware/build -DCMAKE_BUILD_TYPE=Release
+          cmake --build firmware/build --parallel
+          arm-none-eabi-size firmware/build/euclid.elf
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: euclid4-uf2
+          path: firmware/build/euclid.uf2
+          if-no-files-found: error
+
+      # ---- Release (only on version tags: v1.0.0, v1.1.0, ...) ----
+      - name: Package release asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: cp firmware/build/euclid.uf2 "euclid4-${{ github.ref_name }}.uf2"
+
+      - name: Write release notes
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          cat > release_notes.md <<'EOF'
+          ## Euclid4 firmware
+
+          Prebuilt UF2 for the Music Thing Modular Workshop System Computer
+          (RP2040 program card).
+
+          ### Install
+          1. Download `euclid4-${{ github.ref_name }}.uf2` below.
+          2. Hold **BOOTSEL** on the Computer's Pico while powering it up so it
+             mounts as the `RPI-RP2` USB drive.
+          3. Copy the `.uf2` onto that drive. The card reboots and runs Euclid4.
+
+          The card works standalone; connect USB and open `web/index.html`
+          (Chrome/Edge) for the live Web Serial control panel. See the
+          [README](https://github.com/${{ github.repository }}#readme) for the
+          protocol and full documentation.
+          EOF
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          asset="euclid4-${{ github.ref_name }}.uf2"
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload "${{ github.ref_name }}" "$asset" --clobber
+          else
+            gh release create "${{ github.ref_name }}" "$asset" \
+              --title "Euclid4 ${{ github.ref_name }}" \
+              --notes-file release_notes.md
+          fi

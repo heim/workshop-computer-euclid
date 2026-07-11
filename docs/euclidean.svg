@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 360" width="780" height="360" role="img" aria-label="Euclidean rhythm explainer">
+<rect width="780" height="360" rx="14" fill="#0e1116"/>
+<text x="28" y="42" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22" fill="#e6edf3" text-anchor="start" font-weight="700" letter-spacing="0">Euclidean rhythms</text>
+<text x="28" y="66" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Spread a number of hits (fills) as evenly as possible across a number of steps.</text>
+<circle cx="180.0" cy="86.0" r="9.4" fill="none" stroke="#38bdf8" stroke-width="2"/>
+<circle cx="180.0" cy="86.0" r="6" fill="#38bdf8"/>
+<circle cx="219.0" cy="93.8" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="252.1" cy="115.9" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="274.2" cy="149.0" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="282.0" cy="188.0" r="6" fill="#38bdf8"/>
+<circle cx="274.2" cy="227.0" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="252.1" cy="260.1" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="219.0" cy="282.2" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="180.0" cy="290.0" r="6" fill="#38bdf8"/>
+<circle cx="141.0" cy="282.2" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="107.9" cy="260.1" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="85.8" cy="227.0" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="78.0" cy="188.0" r="6" fill="#38bdf8"/>
+<circle cx="85.8" cy="149.0" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="107.9" cy="115.9" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<circle cx="141.0" cy="93.8" r="6" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="180" y="194" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="19" fill="#e6edf3" text-anchor="middle" font-weight="700" letter-spacing="0">E(4,16)</text>
+<circle cx="52" cy="316" r="7" fill="#38bdf8"/>
+<text x="66" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#e6edf3" text-anchor="start" font-weight="400" letter-spacing="0">hit — trigger fires</text>
+<circle cx="52" cy="340" r="7" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="66" y="344" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#e6edf3" text-anchor="start" font-weight="400" letter-spacing="0">rest — no trigger</text>
+<circle cx="215" cy="316" r="9" fill="none" stroke="#38bdf8" stroke-width="2"/>
+<text x="231" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#e6edf3" text-anchor="start" font-weight="400" letter-spacing="0">playhead —</text>
+<text x="231" y="340" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">current step</text>
+<text x="418" y="120" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">steps — length of the loop (here 16)</text>
+<rect x="418" y="134" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="427.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">1</text>
+<rect x="439" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="448.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">2</text>
+<rect x="460" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="469.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">3</text>
+<rect x="481" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="490.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">4</text>
+<rect x="502" y="134" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="511.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">5</text>
+<rect x="523" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="532.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">6</text>
+<rect x="544" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="553.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">7</text>
+<rect x="565" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="574.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">8</text>
+<rect x="586" y="134" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="595.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">9</text>
+<rect x="607" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="616.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">10</text>
+<rect x="628" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="637.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">11</text>
+<rect x="649" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="658.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">12</text>
+<rect x="670" y="134" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="679.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">13</text>
+<rect x="691" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="700.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">14</text>
+<rect x="712" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="721.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">15</text>
+<rect x="733" y="134" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="742.0" y="165" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">16</text>
+<text x="418" y="126" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="600" letter-spacing="0"></text>
+<text x="418" y="206" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">fills — how many hits (here 6)</text>
+<rect x="418" y="220" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="427.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">1</text>
+<rect x="439" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="448.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">2</text>
+<rect x="460" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="469.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">3</text>
+<rect x="481" y="220" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="490.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">4</text>
+<rect x="502" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="511.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">5</text>
+<rect x="523" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="532.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">6</text>
+<rect x="544" y="220" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="553.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">7</text>
+<rect x="565" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="574.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">8</text>
+<rect x="586" y="220" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="595.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">9</text>
+<rect x="607" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="616.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">10</text>
+<rect x="628" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="637.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">11</text>
+<rect x="649" y="220" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="658.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">12</text>
+<rect x="670" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="679.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">13</text>
+<rect x="691" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="700.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">14</text>
+<rect x="712" y="220" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="721.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">15</text>
+<rect x="733" y="220" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="742.0" y="251" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">16</text>
+<text x="418" y="212" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="600" letter-spacing="0"></text>
+<text x="418" y="292" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">rotation — shift the pattern (here +2)</text>
+<rect x="418" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="427.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">1</text>
+<rect x="439" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="448.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">2</text>
+<rect x="460" y="306" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="469.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">3</text>
+<rect x="481" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="490.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">4</text>
+<rect x="502" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="511.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">5</text>
+<rect x="523" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="532.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">6</text>
+<rect x="544" y="306" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="553.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">7</text>
+<rect x="565" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="574.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">8</text>
+<rect x="586" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="595.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">9</text>
+<rect x="607" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="616.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">10</text>
+<rect x="628" y="306" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="637.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">11</text>
+<rect x="649" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="658.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">12</text>
+<rect x="670" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="679.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">13</text>
+<rect x="691" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="700.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">14</text>
+<rect x="712" y="306" width="18" height="18" rx="3" fill="#38bdf8" stroke="none" stroke-width="1.2"/>
+<text x="721.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">15</text>
+<rect x="733" y="306" width="18" height="18" rx="3" fill="#222a34" stroke="#3a4450" stroke-width="1.2"/>
+<text x="742.0" y="337" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="9" fill="#8b949e" text-anchor="middle" font-weight="400" letter-spacing="0">16</text>
+<text x="418" y="298" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="600" letter-spacing="0"></text>
+</svg>

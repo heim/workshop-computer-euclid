@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 556" width="860" height="556" role="img" aria-label="Euclid4 I/O map">
+<rect x="0" y="0" width="860" height="556" rx="14" fill="#0e1116"/>
+<text x="30" y="44" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="22" fill="#e6edf3" text-anchor="start" font-weight="700" letter-spacing="0">Euclid4 — jacks, knobs &amp; switch</text>
+<text x="30" y="68" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Two euclidean generators (A, cyan / B, orange) share one clock.</text>
+<text x="34" y="112" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="700" letter-spacing="1.5">CONTROLS</text><rect x="34" y="120" width="46" height="2" rx="1" fill="#8b949e"/>
+<rect x="34" y="138" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="34" y="138" width="4" height="30" rx="2" fill="#3fb950"/>
+<text x="48" y="158" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Main knob</text>
+<text x="174" y="158" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Fills  (0…steps)</text>
+<rect x="34" y="178" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="34" y="178" width="4" height="30" rx="2" fill="#3fb950"/>
+<text x="48" y="198" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Knob X</text>
+<text x="174" y="198" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Steps  (1…16)</text>
+<rect x="34" y="218" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="34" y="218" width="4" height="30" rx="2" fill="#3fb950"/>
+<text x="48" y="238" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Knob Y</text>
+<text x="174" y="238" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Rotation  (0…steps−1)</text>
+<rect x="34" y="258" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="34" y="258" width="4" height="30" rx="2" fill="#3fb950"/>
+<text x="48" y="278" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Switch</text>
+<text x="174" y="278" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Up: edit A · Mid: lock · Down: edit B</text>
+<rect x="34" y="298" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="34" y="298" width="4" height="30" rx="2" fill="#3fb950"/>
+<text x="48" y="318" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">LEDs 0–5</text>
+<text x="174" y="318" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">A/B trig, A/B complement, edit A/B</text>
+<text x="34" y="352" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="700" letter-spacing="1.5">INPUTS</text><rect x="34" y="360" width="46" height="2" rx="1" fill="#8b949e"/>
+<rect x="34" y="378" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="34" y="378" width="4" height="30" rx="2" fill="#a371f7"/>
+<text x="48" y="398" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Pulse In 1</text>
+<text x="174" y="398" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Clock — advances A and B</text>
+<rect x="34" y="418" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="34" y="418" width="4" height="30" rx="2" fill="#a371f7"/>
+<text x="48" y="438" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Pulse In 2</text>
+<text x="174" y="438" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Reset — both channels to step 0</text>
+<text x="458" y="112" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="700" letter-spacing="1.5">OUTPUTS</text><rect x="458" y="120" width="46" height="2" rx="1" fill="#8b949e"/>
+<rect x="458" y="138" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="458" y="138" width="4" height="30" rx="2" fill="#38bdf8"/>
+<text x="472" y="158" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Pulse Out 1</text>
+<text x="598" y="158" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Channel A — euclidean pattern</text>
+<rect x="458" y="178" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="458" y="178" width="4" height="30" rx="2" fill="#fb923c"/>
+<text x="472" y="198" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Pulse Out 2</text>
+<text x="598" y="198" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Channel B — euclidean pattern</text>
+<rect x="458" y="218" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="458" y="218" width="4" height="30" rx="2" fill="#38bdf8"/>
+<text x="472" y="238" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Audio Out 1</text>
+<text x="598" y="238" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Channel A — complement (the rests)</text>
+<rect x="458" y="258" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="458" y="258" width="4" height="30" rx="2" fill="#fb923c"/>
+<text x="472" y="278" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Audio Out 2</text>
+<text x="598" y="278" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Channel B — complement (the rests)</text>
+<rect x="458" y="298" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="458" y="298" width="4" height="30" rx="2" fill="#38bdf8"/>
+<text x="472" y="318" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">CV Out 1</text>
+<text x="598" y="318" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Sample &amp; hold random on A triggers</text>
+<rect x="458" y="338" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
+<rect x="458" y="338" width="4" height="30" rx="2" fill="#fb923c"/>
+<text x="472" y="358" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">CV Out 2</text>
+<text x="598" y="358" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Sample &amp; hold random on B triggers</text>
+<rect x="458" y="392" width="368" height="64" rx="9" fill="#12171e" stroke="#2b333e" stroke-width="1"/>
+<text x="474" y="416" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Soft pickup: after you flip the edit switch, a knob</text>
+<text x="474" y="434" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="12" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">stays put until you move it, so values never jump.</text>
+</svg>
