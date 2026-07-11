@@ -1,0 +1,13 @@
+# Firmware build artifacts
+firmware/build/
+build/
+*.uf2
+*.elf
+*.bin
+*.hex
+*.dis
+*.map
+
+# Editor / OS
+.vscode/
+.DS_Store

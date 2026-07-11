@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Euclid4 — Workshop Computer</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2b333e;
+    --text:#e6edf3; --dim:#8b949e; --accentA:#38bdf8; --accentB:#fb923c;
+    --danger:#f85149; --ok:#3fb950;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    padding:16px 22px; border-bottom:1px solid var(--line); background:var(--panel);
+  }
+  header h1{font-size:18px; margin:0; font-weight:650; letter-spacing:.3px}
+  header h1 small{color:var(--dim); font-weight:400; font-size:13px; margin-left:8px}
+  .spacer{flex:1}
+  .status{display:flex; align-items:center; gap:8px; color:var(--dim); font-size:13px}
+  .dot{width:10px; height:10px; border-radius:50%; background:var(--dim); transition:background .2s}
+  .dot.on{background:var(--ok); box-shadow:0 0 8px var(--ok)}
+  button{
+    font:inherit; color:var(--text); background:var(--panel2);
+    border:1px solid var(--line); border-radius:8px; padding:8px 14px;
+    cursor:pointer; transition:background .12s,border-color .12s;
+  }
+  button:hover:not(:disabled){background:#232c38; border-color:#3a4550}
+  button:disabled{opacity:.45; cursor:not-allowed}
+  button.primary{background:#1f6feb; border-color:#1f6feb}
+  button.primary:hover:not(:disabled){background:#388bfd}
+  button.danger{border-color:#5a2a2a; color:#ff9a92}
+  button.danger:hover:not(:disabled){background:#3a1f1f}
+
+  main{max-width:1000px; margin:0 auto; padding:22px}
+  .warn{
+    display:none; margin:0 0 20px; padding:14px 16px; border-radius:10px;
+    background:#3a1f1f; border:1px solid #5a2a2a; color:#ffb4ad;
+  }
+  .warn.show{display:block}
+  .warn code{background:#00000040; padding:1px 6px; border-radius:4px}
+
+  .channels{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+  @media(max-width:720px){ .channels{grid-template-columns:1fr} }
+
+  .card{
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:14px; padding:20px; display:flex; flex-direction:column; align-items:center;
+  }
+  .card h2{
+    margin:0 0 4px; font-size:15px; font-weight:600; letter-spacing:.5px;
+    display:flex; align-items:center; gap:9px; align-self:flex-start;
+  }
+  .swatch{width:12px; height:12px; border-radius:3px}
+  .a .swatch{background:var(--accentA)} .b .swatch{background:var(--accentB)}
+  .summary{align-self:flex-start; color:var(--dim); font-size:13px; margin-bottom:8px; font-variant-numeric:tabular-nums}
+
+  svg.ring{width:220px; height:220px; max-width:100%; display:block; margin:6px 0 14px}
+  .ctrls{width:100%; display:flex; flex-direction:column; gap:14px}
+  .ctrl{display:grid; grid-template-columns:56px 1fr auto; align-items:center; gap:10px}
+  .ctrl label{color:var(--dim); font-size:13px}
+  .ctrl .val{
+    min-width:34px; text-align:right; font-variant-numeric:tabular-nums;
+    font-weight:600; font-size:15px;
+  }
+  .ctrl .row{display:flex; align-items:center; gap:8px}
+  .ctrl input[type=range]{width:100%; margin:0}
+  .a input[type=range]{accent-color:var(--accentA)}
+  .b input[type=range]{accent-color:var(--accentB)}
+  .step{
+    width:30px; height:30px; padding:0; font-size:18px; line-height:1;
+    border-radius:7px; display:flex; align-items:center; justify-content:center;
+  }
+  .footer{display:flex; gap:12px; align-items:center; margin-top:22px; flex-wrap:wrap}
+  .hint{color:var(--dim); font-size:13px}
+
+  details.log{margin-top:22px; border:1px solid var(--line); border-radius:10px; background:var(--panel)}
+  details.log summary{cursor:pointer; padding:10px 14px; color:var(--dim); font-size:13px; user-select:none}
+  pre#mon{
+    margin:0; padding:12px 14px; border-top:1px solid var(--line); max-height:180px; overflow:auto;
+    font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:#b8c2cc;
+  }
+  pre#mon .tx{color:var(--accentA)} pre#mon .rx{color:var(--dim)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Euclid4 <small>Workshop Computer · WebSerial</small></h1>
+  <div class="spacer"></div>
+  <div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Not connected</span></div>
+  <button class="primary" id="connectBtn">Connect</button>
+  <button id="disconnectBtn" disabled>Disconnect</button>
+</header>
+
+<main>
+  <div class="warn" id="warn">
+    <strong>Web Serial is not available in this browser.</strong>
+    Use a Chromium-based desktop browser — <b>Chrome</b>, <b>Edge</b> or <b>Opera</b> —
+    served over <code>https://</code> or opened from a local <code>file://</code>.
+    Firefox and Safari do not support <code>navigator.serial</code>.
+  </div>
+
+  <div class="channels">
+    <!-- Channel A -->
+    <section class="card a" id="cardA">
+      <h2><span class="swatch"></span>Channel A</h2>
+      <div class="summary" id="sumA">— hits / — steps · rot —</div>
+      <svg class="ring" id="ringA" viewBox="0 0 120 120" aria-label="Channel A pattern ring"></svg>
+      <div class="ctrls" id="ctrlsA"></div>
+    </section>
+
+    <!-- Channel B -->
+    <section class="card b" id="cardB">
+      <h2><span class="swatch"></span>Channel B</h2>
+      <div class="summary" id="sumB">— hits / — steps · rot —</div>
+      <svg class="ring" id="ringB" viewBox="0 0 120 120" aria-label="Channel B pattern ring"></svg>
+      <div class="ctrls" id="ctrlsB"></div>
+    </section>
+  </div>
+
+  <div class="footer">
+    <button class="danger" id="resetBtn" disabled>Reset both to step 0</button>
+    <span class="hint">Knobs on the module and this page both control the pattern — last change wins.</span>
+  </div>
+
+  <details class="log">
+    <summary>Serial monitor</summary>
+    <pre id="mon"></pre>
+  </details>
+</main>
+
+<script>
+"use strict";
+
+// ---- State mirror of the two channels -------------------------------------
+const state = {
+  a:{steps:16, fills:4, rot:0, pattern:0, step:0},
+  b:{steps:16, fills:7, rot:3, pattern:0, step:0},
+};
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const ACCENT = {a:"#38bdf8", b:"#fb923c"};
+const PARAMS = [
+  {key:"steps", label:"Steps", min:1, max:16},
+  {key:"fills", label:"Fills", min:0, max:16},
+  {key:"rot",   label:"Rot",   min:0, max:15},
+];
+
+// ---- Serial plumbing ------------------------------------------------------
+let port = null, reader = null, writer = null;
+let keepReading = false;
+let rxBuf = "";
+let writeChain = Promise.resolve();
+const enc = new TextEncoder();
+const dragging = new Set();   // param controls the user is actively holding
+
+const $ = id => document.getElementById(id);
+
+function log(kind, text){
+  const mon = $("mon");
+  const span = document.createElement("span");
+  span.className = kind;
+  span.textContent = (kind==="tx" ? "» " : "« ") + text + "\n";
+  mon.appendChild(span);
+  while (mon.childNodes.length > 200) mon.removeChild(mon.firstChild);
+  mon.scrollTop = mon.scrollHeight;
+}
+
+function send(cmd){
+  if (!writer) return;
+  log("tx", cmd);
+  const data = enc.encode(cmd + "\n");
+  // serialise writes so we never overlap two writer.write() calls
+  writeChain = writeChain.then(() => writer.write(data)).catch(err => console.warn("write failed", err));
+  return writeChain;
+}
+
+async function connect(){
+  if (!("serial" in navigator)) return;
+  try {
+    port = await navigator.serial.requestPort();
+    await port.open({ baudRate: 115200 });   // CDC ignores the rate, but the API requires it
+  } catch (err){
+    // user cancelled the picker, or open failed
+    if (err && err.name !== "NotFoundError") console.warn(err);
+    port = null;
+    return;
+  }
+
+  writer = port.writable.getWriter();
+  keepReading = true;
+  setConnected(true);
+  readLoop();                 // fire and forget
+  send("GET");                // sync UI to the module's real state
+}
+
+async function disconnect(){
+  keepReading = false;
+  try { if (reader) await reader.cancel(); } catch(e){}
+  try { if (writer){ await writeChain.catch(()=>{}); writer.releaseLock(); } } catch(e){}
+  try { if (port) await port.close(); } catch(e){}
+  reader = writer = port = null;
+  rxBuf = "";
+  setConnected(false);
+}
+
+async function readLoop(){
+  const decoder = new TextDecoder();
+  try {
+    reader = port.readable.getReader();
+    while (keepReading){
+      const { value, done } = await reader.read();
+      if (done) break;
+      rxBuf += decoder.decode(value, { stream:true });
+      let nl;
+      while ((nl = rxBuf.indexOf("\n")) >= 0){
+        const line = rxBuf.slice(0, nl).trim();
+        rxBuf = rxBuf.slice(nl + 1);
+        if (line) handleLine(line);
+      }
+    }
+  } catch(err){
+    console.warn("read loop ended", err);
+  } finally {
+    try { reader && reader.releaseLock(); } catch(e){}
+    if (keepReading) disconnect();   // stream died unexpectedly (e.g. unplug)
+  }
+}
+
+function handleLine(line){
+  let obj;
+  try { obj = JSON.parse(line); } catch(e){ return; }   // ignore non-JSON noise
+  if (!obj || typeof obj !== "object") return;
+  log("rx", line);
+  for (const ch of ["a","b"]){
+    if (obj[ch]) Object.assign(state[ch], obj[ch]);
+  }
+  scheduleRender();
+}
+
+// ---- Rendering ------------------------------------------------------------
+let renderPending = false;
+function scheduleRender(){
+  if (renderPending) return;
+  renderPending = true;
+  requestAnimationFrame(() => { renderPending = false; render(); });
+}
+
+function render(){
+  for (const ch of ["a","b"]){
+    const s = state[ch];
+    drawRing(ch);
+    // summary line
+    $("sum" + ch.toUpperCase()).textContent =
+      `${s.fills} hits / ${s.steps} steps · rot ${s.rot} · step ${s.step + 1}`;
+    // sync controls (but never yank a slider the user is holding)
+    for (const p of PARAMS){
+      const max = paramMax(p, s);
+      const slider = $(`sl_${ch}_${p.key}`);
+      const valEl  = $(`vl_${ch}_${p.key}`);
+      slider.max = max;
+      if (!dragging.has(`${ch}_${p.key}`)){
+        const shown = Math.min(s[p.key], max);
+        slider.value = shown;
+        valEl.textContent = shown;
+      }
+    }
+  }
+}
+
+function drawRing(ch){
+  const s = state[ch];
+  const svg = $("ring" + ch.toUpperCase());
+  const cx = 60, cy = 60, R = 44;
+  const n = Math.max(1, s.steps);
+  const r = n <= 8 ? 8 : n <= 12 ? 6.4 : 5.2;
+  const accent = ACCENT[ch];
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+  for (let i = 0; i < n; i++){
+    const ang = (-90 + i * 360 / n) * Math.PI / 180;
+    const x = cx + R * Math.cos(ang);
+    const y = cy + R * Math.sin(ang);
+    const hit = (s.pattern >> i) & 1;
+    const isStep = i === s.step;
+
+    // playhead halo
+    if (isStep){
+      const halo = document.createElementNS(SVGNS, "circle");
+      halo.setAttribute("cx", x); halo.setAttribute("cy", y);
+      halo.setAttribute("r", r + 3.2);
+      halo.setAttribute("fill", "none");
+      halo.setAttribute("stroke", accent);
+      halo.setAttribute("stroke-width", "2");
+      halo.setAttribute("opacity", "0.9");
+      svg.appendChild(halo);
+    }
+
+    const c = document.createElementNS(SVGNS, "circle");
+    c.setAttribute("cx", x); c.setAttribute("cy", y); c.setAttribute("r", r);
+    if (hit){
+      c.setAttribute("fill", accent);
+      c.setAttribute("opacity", isStep ? "1" : "0.92");
+    } else {
+      c.setAttribute("fill", isStep ? "#0e1116" : "#222a34");
+      c.setAttribute("stroke", isStep ? accent : "#3a4450");
+      c.setAttribute("stroke-width", isStep ? "1.6" : "1.2");
+    }
+    svg.appendChild(c);
+  }
+}
+
+// live max for a parameter given the channel's current step count
+function paramMax(p, s){
+  return p.key === "fills" ? s.steps : p.key === "rot" ? Math.max(0, s.steps - 1) : p.max;
+}
+
+// ---- Build the per-channel controls once ----------------------------------
+function buildControls(ch){
+  const host = $("ctrls" + ch.toUpperCase());
+  for (const p of PARAMS){
+    const row = document.createElement("div");
+    row.className = "ctrl";
+
+    const label = document.createElement("label");
+    label.textContent = p.label;
+
+    const mid = document.createElement("div");
+    mid.className = "row";
+    const minus = document.createElement("button");
+    minus.className = "step"; minus.textContent = "−";
+    const slider = document.createElement("input");
+    slider.type = "range"; slider.min = p.min; slider.max = p.max; slider.step = 1;
+    slider.id = `sl_${ch}_${p.key}`;
+    const plus = document.createElement("button");
+    plus.className = "step"; plus.textContent = "+";
+    mid.append(minus, slider, plus);
+
+    const val = document.createElement("div");
+    val.className = "val"; val.id = `vl_${ch}_${p.key}`; val.textContent = state[ch][p.key];
+
+    row.append(label, mid, val);
+    host.appendChild(row);
+
+    const dragKey = `${ch}_${p.key}`;
+
+    // Single path for slider drags and +/- buttons: clamp, echo, send, redraw.
+    const setParam = v => {
+      v = Math.max(p.min, Math.min(paramMax(p, state[ch]), v));
+      slider.value = v;
+      val.textContent = v;
+      state[ch][p.key] = v;                       // optimistic; the push confirms
+      send(`SET ${ch.toUpperCase()} ${p.key} ${v}`);
+      scheduleRender();                           // reflect new fills/rot maxes at once
+    };
+
+    slider.addEventListener("input", () => setParam(parseInt(slider.value, 10)));
+    slider.addEventListener("pointerdown", () => dragging.add(dragKey));
+    const release = () => dragging.delete(dragKey);
+    slider.addEventListener("pointerup", release);
+    slider.addEventListener("pointercancel", release);
+    slider.addEventListener("blur", release);
+    minus.addEventListener("click", () => setParam(parseInt(slider.value, 10) - 1));
+    plus .addEventListener("click", () => setParam(parseInt(slider.value, 10) + 1));
+  }
+}
+
+// ---- Connection UI state --------------------------------------------------
+function setConnected(on){
+  $("statusDot").classList.toggle("on", on);
+  $("statusText").textContent = on ? "Connected" : "Not connected";
+  $("connectBtn").disabled = on;
+  $("disconnectBtn").disabled = !on;
+  $("resetBtn").disabled = !on;
+  document.querySelectorAll('input[type=range], .step').forEach(el => el.disabled = !on);
+}
+
+// ---- Wire up --------------------------------------------------------------
+buildControls("a");
+buildControls("b");
+render();
+
+$("connectBtn").addEventListener("click", connect);
+$("disconnectBtn").addEventListener("click", disconnect);
+$("resetBtn").addEventListener("click", () => send("RESET"));
+
+if (!("serial" in navigator)){
+  $("warn").classList.add("show");
+  $("connectBtn").disabled = true;
+} else {
+  setConnected(false);
+  // physical unplug while connected
+  navigator.serial.addEventListener("disconnect", (e) => {
+    if (port && e.target === port) disconnect();
+  });
+}
+</script>
+</body>
+</html>
