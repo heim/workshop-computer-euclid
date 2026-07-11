@@ -96,15 +96,21 @@ jobs:
           Prebuilt UF2 for the Music Thing Modular Workshop System Computer
           (RP2040 program card).
 
-          ### Install
+          ### Install (write the card)
           1. Download the `euclid4-*.uf2` file below.
-          2. Hold **BOOTSEL** on the Computer's Pico while powering it up so it
-             mounts as the `RPI-RP2` USB drive.
-          3. Copy the `.uf2` onto that drive. The card reboots and runs Euclid4.
+          2. Pull off the **main knob** at the top of Computer to reveal the
+             recessed **top (BOOTSEL) button**.
+          3. Insert the target card into the program-card slot (any card — printed
+             cards are not write-protected).
+          4. Connect USB-C from Computer's front panel and power-cycle the
+             Workshop System so it connects.
+          5. Hold the **top button**, tap and release the **bottom button** by the
+             card slot, then let go. The `RPI-RP2` drive appears.
+          6. Drag the `.uf2` onto `RPI-RP2`. It reboots running Euclid4.
 
-          The card works standalone; connect USB and open `web/index.html`
-          (Chrome/Edge) for the live Web Serial control panel. See the README
-          for the protocol and full documentation.
+          The card works standalone; connect USB and open the live control panel
+          at https://heim.github.io/workshop-computer-euclid/ (Chrome/Edge). See
+          the README for the protocol and full documentation.
           EOF
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "euclid4-${TAG}.uf2" --clobber

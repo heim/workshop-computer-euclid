@@ -37,32 +37,39 @@ so it never disturbs the 48 kHz audio engine on the first.
 
 ## Install on a card
 
-The firmware is a single `.uf2` file that you copy onto the Computer's Pico while
-it is in bootloader mode. No programmer or soldering is required.
+The firmware is a single `.uf2` file that you write to a program card in the
+Workshop Computer's card slot — no programmer or soldering required. Program cards
+are **not** write-protected, so a blank card and a printed card (a Reverb+, say)
+are written exactly the same way; just double-check you've inserted the card you
+mean to overwrite.
 
 ### Option A — download the prebuilt firmware (recommended)
 
-1. Go to the [**Releases**](https://github.com/heim/workshop-computer-euclid/releases)
-   page and download the latest `euclid4-vX.Y.Z.uf2`.
-2. **Enter bootloader mode.** With the module powered off, hold the **BOOTSEL**
-   button on the Computer's Raspberry Pi Pico and apply power (or hold BOOTSEL
-   while pressing the Computer's reset). The Pico appears on your computer as a
-   USB drive called **`RPI-RP2`**.
-3. **Copy the file.** Drag `euclid4-vX.Y.Z.uf2` onto the `RPI-RP2` drive. The
-   drive disappears, the Pico reboots, and Euclid4 starts running immediately.
+1. **Download** the latest `euclid4-vX.Y.Z.uf2` from the
+   [**Releases**](https://github.com/heim/workshop-computer-euclid/releases) page.
+2. **Reveal the top button.** Pull off the **main knob** at the top of Computer
+   (stiff the first time, then easier). Recessed into the panel behind it is a small
+   button — this is the boot (BOOTSEL) button.
+3. **Insert the target card** into the program-card slot and check it's the right one.
+4. **Connect a USB-C cable** from Computer's front-panel USB port to your machine,
+   then **power-cycle the Workshop System** so the Computer connects over USB.
+5. **Enter bootloader mode:** hold down the **top button** (behind the knob), then
+   **tap and release the bottom button** next to the card slot, and let go of the top
+   button. A drive called **`RPI-RP2`** appears on your desktop. (If it doesn't, turn
+   the Workshop System off and on and try again.)
+6. **Copy the firmware:** drag `euclid4-vX.Y.Z.uf2` onto the `RPI-RP2` drive. The
+   drive disappears and the card reboots running Euclid4.
 
 That's it — the card is ready to patch. USB is optional; see
 [USB control](#usb-control--the-web-ui) below.
 
+> New to writing Workshop System cards? Music Thing has a ~3-minute walkthrough on
+> the [Workshop System page](https://www.musicthing.co.uk/workshopsystem/).
+
 ### Option B — build it yourself
 
 If you'd rather compile the firmware, see [Building from source](#building-from-source).
-The build produces the same `euclid.uf2`, which you flash exactly as in step 2–3 above.
-
-> **Where is the BOOTSEL button?** It is the small button on the Raspberry Pi Pico
-> itself, accessible through the Workshop System's program-card slot. To re-flash a
-> card that is already running, just power-cycle it while holding BOOTSEL to get the
-> `RPI-RP2` drive back.
+The build produces the same `euclid.uf2`, which you write with steps 2–6 above.
 
 ---
 
@@ -239,7 +246,7 @@ cmake -S firmware -B firmware/build -DCMAKE_BUILD_TYPE=Release
 cmake --build firmware/build --parallel
 ```
 
-This produces `firmware/build/euclid.uf2`. Flash it via BOOTSEL as described in
+This produces `firmware/build/euclid.uf2`. Write it to a card as described in
 [Install on a card](#install-on-a-card).
 
 ### Automated builds &amp; releases
