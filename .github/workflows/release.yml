@@ -72,13 +72,6 @@ jobs:
             https://github.com/raspberrypi/pico-sdk.git pico-sdk
           git -C pico-sdk submodule update --init --depth 1 lib/tinyusb
 
-      - name: Build firmware
-        env:
-          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
-        run: |
-          cmake -S firmware -B firmware/build -DCMAKE_BUILD_TYPE=Release
-          cmake --build firmware/build --parallel
-
       - name: Resolve version
         id: ver
         env:
@@ -112,6 +105,14 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
           echo "Resolved release version: $TAG"
+
+      - name: Build firmware
+        env:
+          PICO_SDK_PATH: ${{ github.workspace }}/pico-sdk
+        run: |
+          cmake -S firmware -B firmware/build -DCMAKE_BUILD_TYPE=Release \
+            -DEUCLID_VERSION="${{ steps.ver.outputs.tag }}"
+          cmake --build firmware/build --parallel
 
       - name: Publish release
         env:

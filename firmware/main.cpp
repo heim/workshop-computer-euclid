@@ -57,6 +57,12 @@
 #include <cstring>
 #include <cstdint>
 
+// Firmware-versjon. Settes normalt av byggesystemet (-DEUCLID_VERSION=...
+// fra release-workflowen), ellers "dev". Rapporteres i JSON-tilstanden.
+#ifndef EUCLID_VERSION
+#define EUCLID_VERSION "dev"
+#endif
+
 // Data-minnebarriere. RP2040 (Cortex-M0+) kjører in-order, men vi bruker en
 // eksplisitt dmb + "memory"-clobber slik at kompilatoren ikke omorganiserer
 // rekkefølgen på verdi/dirty-skrivene i mailboxen eller seqlock-en.
@@ -555,10 +561,12 @@ static void SendState(bool force)
 	if (!shared::ReadSnapshot(s, seq)) return;    // klarte ikke lese konsistent nå; prøv igjen senere
 	if (!force && seq == g_lastSentSeq) return;   // ingenting nytt
 
-	char buf[192];
+	char buf[256];
 	int len = snprintf(buf, sizeof(buf),
-		"{\"a\":{\"steps\":%d,\"fills\":%d,\"rot\":%d,\"pattern\":%u,\"step\":%d},"
+		"{\"fw\":\"%s\","
+		"\"a\":{\"steps\":%d,\"fills\":%d,\"rot\":%d,\"pattern\":%u,\"step\":%d},"
 		"\"b\":{\"steps\":%d,\"fills\":%d,\"rot\":%d,\"pattern\":%u,\"step\":%d}}\n",
+		EUCLID_VERSION,
 		s.ch[shared::CH_A].steps, s.ch[shared::CH_A].fills, s.ch[shared::CH_A].rot,
 		(unsigned)s.ch[shared::CH_A].pattern, s.ch[shared::CH_A].step,
 		s.ch[shared::CH_B].steps, s.ch[shared::CH_B].fills, s.ch[shared::CH_B].rot,

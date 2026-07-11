@@ -206,9 +206,11 @@ the web UI animate.
 State line format:
 
 ```json
-{"a":{"steps":16,"fills":4,"rot":0,"pattern":4369,"step":3},"b":{"steps":16,"fills":7,"rot":3,"pattern":42314,"step":3}}
+{"fw":"v1.1.0","a":{"steps":16,"fills":4,"rot":0,"pattern":4369,"step":3},"b":{"steps":16,"fills":7,"rot":3,"pattern":42314,"step":3}}
 ```
 
+- `fw` is the firmware version (the release tag it was built from, or `dev`). The
+  web UI shows it so you can tell whether the card matches the latest release.
 - `pattern` is a bitfield — bit *i* set means step *i* fires (bit 0 is step 1).
 - `step` is the current 0-based playhead position.
 

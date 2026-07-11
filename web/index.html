@@ -87,6 +87,8 @@
     font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; color:#b8c2cc;
   }
   pre#mon .tx{color:var(--accentA)} pre#mon .rx{color:var(--dim)}
+  .version{color:var(--dim); font-size:12px; margin:18px 2px 0; font-variant-numeric:tabular-nums}
+  .version span{color:var(--text); font-weight:600}
 </style>
 </head>
 <body>
@@ -133,10 +135,16 @@
     <summary>Serial monitor</summary>
     <pre id="mon"></pre>
   </details>
+
+  <p class="version">Euclid4 · UI <span id="uiVersion">dev</span> · card firmware <span id="fwVersion">—</span></p>
 </main>
 
 <script>
 "use strict";
+
+// UI version. The Pages deploy replaces "dev" with the release tag; stays "dev"
+// when run locally from file://.
+const UI_VERSION = "dev";
 
 // ---- State mirror of the two channels -------------------------------------
 const state = {
@@ -238,6 +246,7 @@ function handleLine(line){
   try { obj = JSON.parse(line); } catch(e){ return; }   // ignore non-JSON noise
   if (!obj || typeof obj !== "object") return;
   log("rx", line);
+  if (typeof obj.fw === "string") $("fwVersion").textContent = obj.fw;   // firmware version
   for (const ch of ["a","b"]){
     if (obj[ch]) Object.assign(state[ch], obj[ch]);
   }
@@ -378,12 +387,14 @@ function setConnected(on){
   $("connectBtn").disabled = on;
   $("disconnectBtn").disabled = !on;
   $("resetBtn").disabled = !on;
+  if (!on) $("fwVersion").textContent = "—";   // clear firmware version until reconnected
   document.querySelectorAll('input[type=range], .step').forEach(el => el.disabled = !on);
 }
 
 // ---- Wire up --------------------------------------------------------------
 buildControls("a");
 buildControls("b");
+$("uiVersion").textContent = UI_VERSION;
 render();
 
 $("connectBtn").addEventListener("click", connect);

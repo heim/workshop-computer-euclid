@@ -29,6 +29,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # need tags so `git describe` can stamp the UI version
+
+      - name: Stamp UI version
+        run: |
+          VER="$(git describe --tags --always 2>/dev/null || echo dev)"
+          echo "Stamping UI version: $VER"
+          sed -i "s/const UI_VERSION = \"dev\"/const UI_VERSION = \"$VER\"/" web/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

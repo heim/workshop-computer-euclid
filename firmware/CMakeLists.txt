@@ -22,6 +22,13 @@ add_executable(euclid
 # tusb_config.h ligger i denne mappen
 target_include_directories(euclid PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
+# Firmware-versjon. Overstyres av release-workflowen med -DEUCLID_VERSION=vX.Y.Z;
+# ellers "dev". Sendes tilbake i JSON-tilstanden slik at web-UI kan vise den.
+if(NOT DEFINED EUCLID_VERSION)
+    set(EUCLID_VERSION "dev")
+endif()
+target_compile_definitions(euclid PRIVATE EUCLID_VERSION="${EUCLID_VERSION}")
+
 target_link_libraries(euclid
     pico_stdlib
     pico_multicore        # USB-stacken kjøres på core1
