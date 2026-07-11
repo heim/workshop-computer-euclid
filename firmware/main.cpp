@@ -302,11 +302,15 @@ private:
 	static constexpr int32_t kPickupThreshold = 100; // av 4096
 
 	// Intern klokke (fritt løpende når ingen ekstern klokke er aktiv).
-	// Én tick = ett steg. Tap tempo setter perioden (samples mellom steg).
+	// Én tick = ett steg. internalPeriod er steg-perioden (samples mellom steg).
 	static constexpr uint32_t kDefaultStepSamples = 12000; // 250 ms/steg @ 48 kHz
-	static constexpr uint32_t kMinStepSamples     = 2400;  // ~50 ms  (raskeste tap)
-	static constexpr uint32_t kMaxStepSamples     = 96000; // ~2 s    (tregeste tap)
 	static constexpr uint32_t kExtClockTimeout    = 120000;// 2.5 s uten ekstern kant -> intern overtar
+
+	// Tap tempo: du tapper SLAGET (fjerdedeler); mønsteret deles i kStepsPerBeat
+	// steg per slag (4 -> sekstendelssteg). Tap-intervallet er altså ett slag.
+	static constexpr uint32_t kStepsPerBeat  = 4;
+	static constexpr uint32_t kMinBeatSamples = 9600;  // ~200 ms/slag (~300 BPM)
+	static constexpr uint32_t kMaxBeatSamples = 96000; // ~2 s/slag   (~30 BPM); også burst-timeout
 
 	EuclidChannel chA, chB;
 	int trigA = 0, trigB = 0, compA = 0, compB = 0;
@@ -329,6 +333,9 @@ private:
 	bool tapValid = false;
 	int tapFlash = 0;                           // LED-blink ved tap
 	Switch lastSwitchPos = Middle;              // for å oppdage flikk til Down
+	uint32_t tapIvls[4] = {0, 0, 0, 0};         // glidende vindu av de siste tap-intervallene
+	int tapN = 0;                               // antall intervaller i vinduet (0..4)
+	int tapPos = 0;                             // ring-indeks
 
 	// xorshift32, skalert til -2047..2047 for CVOut
 	int16_t NextRandom()
@@ -500,16 +507,45 @@ private:
 		return changed;
 	}
 
-	// Registrerer et tap (flikk ned). To gyldige tap etter hverandre setter
-	// intern-klokkas periode (samples mellom steg) og faser den til tapet.
+	// Registrerer et tap (flikk ned). Du tapper SLAGET; intervallet mellom to
+	// tap er ett slag, som deles i kStepsPerBeat steg (4 -> sekstendelssteg).
+	//
+	// Fra og med det andre tapet i en serie settes tempoet. Flere tap
+	// midles: de siste inntil 4 intervallene holdes i et glidende vindu og
+	// gjennomsnittet brukes, slik at små ujevnheter i tappingen jevnes ut.
+	// Et opphold lengre enn ett maks-slag (~2 s) starter en ny serie, og
+	// hvert gyldige tap faser downbeaten til akkurat det tapet.
 	void RegisterTap()
 	{
 		uint32_t interval = sampleCounter - lastTap;
-		if (tapValid && interval >= kMinStepSamples && interval <= kMaxStepSamples)
+
+		if (!tapValid || interval > kMaxBeatSamples)
 		{
-			internalPeriod = interval;
-			internalCounter = 0;
+			// Første tap, eller for lenge siden forrige -> start ny serie.
+			// Selve tapet gir ennå ikke tempo; vi trenger tap nummer to.
+			tapN = 0;
+			tapPos = 0;
 		}
+		else if (interval >= kMinBeatSamples)
+		{
+			// Gyldig slag-intervall: legg i det glidende vinduet (siste 4)
+			// og bruk gjennomsnittet som slag-lengde.
+			tapIvls[tapPos] = interval;
+			tapPos = (tapPos + 1) & 3;
+			if (tapN < 4) tapN++;
+
+			uint32_t sum = 0;
+			for (int i = 0; i < tapN; i++) sum += tapIvls[i];
+			uint32_t beat = sum / (uint32_t)tapN;
+
+			uint32_t step = beat / kStepsPerBeat;
+			if (step < 1) step = 1;
+			internalPeriod = step;
+			internalCounter = 0;   // fas downbeaten til dette tapet
+		}
+		// interval < kMinBeatSamples: raskere enn ~300 BPM -> ignoreres som
+		// støy/prell, men lastTap oppdateres så neste intervall måles herfra.
+
 		lastTap = sampleCounter;
 		tapValid = true;
 		tapFlash = kTrigSamples;

@@ -143,10 +143,13 @@ you flip between A and B without values jumping.
 
 Euclid4 has its own internal clock, and it also follows an external one:
 
-- **Tap tempo** — with the switch **Down**, flick it down in time with the beat.
-  Two or more taps set the internal step rate (each flick nudges the clock in
-  phase, and LEDs 4/5 blink on every tap). The internal clock free-runs, so the
-  card plays standalone with no patching.
+- **Tap tempo** — with the switch **Down**, tap it in time with the **beat**
+  (quarter notes). Each beat is divided into **four steps** (sixteenth notes), so
+  two taps are enough to set the tempo and the pattern runs four steps per tap.
+  Keep tapping and the last few taps are **averaged**, so an uneven hand still
+  lands on a steady tempo; each tap re-aligns the beat. Pause for a couple of
+  seconds and the next tap starts a fresh count. LEDs 4/5 blink on every tap, and
+  the internal clock free-runs, so the card plays standalone with no patching.
 - **External clock** — patch a clock into **Pulse In 1** and it takes over
   automatically; the internal clock steps back in while external pulses are
   arriving and resumes if they stop. **Pulse In 2** still resets both channels.
