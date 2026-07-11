@@ -253,13 +253,21 @@ This produces `firmware/build/euclid.uf2`. Write it to a card as described in
 
 Every push and pull request builds the firmware in GitHub Actions
 ([`.github/workflows/build.yml`](.github/workflows/build.yml)) and uploads the
-`.uf2` as a build artifact. Pushing a version tag (`v1.0.0`, `v1.1.0`, …) builds it
-and publishes a **GitHub Release** with the `.uf2` attached for download:
+`.uf2` as a build artifact.
 
-```sh
-git tag v1.0.1
-git push origin v1.0.1
-```
+Releases are cut by a separate workflow
+([`.github/workflows/release.yml`](.github/workflows/release.yml)) that builds the
+firmware, creates the tag and **GitHub Release** server-side, attaches
+`euclid4-<version>.uf2`, and writes install notes plus an auto-generated changelog.
+Run it any of these ways:
+
+- **Actions tab → “release” → Run workflow.** Pick a `bump` (patch / minor / major);
+  the next version is computed from the latest release. Optionally set an explicit
+  `version` or mark it a pre-release.
+- **Push a tag:** `git tag v1.1.0 && git push origin v1.1.0`.
+
+Because the whole thing runs on the Actions runner, a release needs nothing more
+than triggering that workflow — no local tag push or manual upload required.
 
 ---
 
