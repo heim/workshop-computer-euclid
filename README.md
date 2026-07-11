@@ -1,6 +1,7 @@
 # Euclid4 — Workshop Computer euclidean generator
 
 [![build](https://github.com/heim/workshop-computer-euclid/actions/workflows/build.yml/badge.svg)](https://github.com/heim/workshop-computer-euclid/actions/workflows/build.yml)
+[![pages](https://github.com/heim/workshop-computer-euclid/actions/workflows/pages.yml/badge.svg)](https://heim.github.io/workshop-computer-euclid/)
 
 Firmware for a [Music Thing Modular Workshop System Computer](https://www.musicthing.co.uk/workshopsystem/)
 program card (RP2040), built on Chris Johnson's header-only
@@ -12,6 +13,9 @@ random CVs**. It works completely standalone — and when you plug in USB it als
 speaks a small serial protocol, so the included **browser control panel** can show
 both patterns live and edit every parameter. USB runs on the RP2040's second core,
 so it never disturbs the 48 kHz audio engine on the first.
+
+> ▶ **Try the control panel in your browser:** **<https://heim.github.io/workshop-computer-euclid/>**
+> (Chrome / Edge / Opera → **Connect** → pick the card's serial port)
 
 ![Web Serial control panel](web/screenshot.png)
 
@@ -139,9 +143,13 @@ included web page for a live graphical control panel.
 
 ### The web control panel
 
-Open [`web/index.html`](web/index.html) — it is a single static page with no build
-step and no server. It runs straight from the filesystem (`file://`) or from GitHub
-Pages.
+The panel is hosted on GitHub Pages — just open it:
+
+**<https://heim.github.io/workshop-computer-euclid/>**
+
+It is a single static page ([`web/index.html`](web/index.html)) with no build step
+and no server, so you can equally run it straight from the filesystem (`file://`)
+after cloning.
 
 1. Open it in a **Chromium-based desktop browser** — Chrome, Edge or Opera. It uses
    the [Web Serial API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API),
