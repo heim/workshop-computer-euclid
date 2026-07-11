@@ -90,14 +90,14 @@ output fires instead — see below).
 
 ### Inputs, outputs and controls
 
-Two generators, **A** (cyan) and **B** (orange), share the external clock. Each one
-produces three things: the pattern itself, its complement, and a random CV.
+Two generators, **A** (cyan) and **B** (orange), share one clock. Each one produces
+three things: the pattern itself, its complement, and a random CV.
 
 ![Euclid4 I/O map](docs/io-map.svg)
 
 | Jack / control  | Function                                                       |
 |-----------------|----------------------------------------------------------------|
-| **Pulse In 1**  | Clock — advances both A and B                                  |
+| **Pulse In 1**  | External clock — advances A and B (overrides the internal clock while running) |
 | **Pulse In 2**  | Reset — rising edge sends both channels to step 0             |
 | **Pulse Out 1** | Channel **A** euclidean pattern (10 ms triggers)              |
 | **Pulse Out 2** | Channel **B** euclidean pattern                               |
@@ -108,9 +108,9 @@ produces three things: the pattern itself, its complement, and a random CV.
 | **Main knob**   | Fills (0…steps) for the selected channel                      |
 | **Knob X**      | Steps (1…16) for the selected channel                         |
 | **Knob Y**      | Rotation (0…steps−1) for the selected channel                 |
-| **Switch**      | Up = edit A · Middle = locked · Down = edit B                 |
+| **Switch**      | Up = edit A · Middle = edit B · Down = tap tempo (internal clock) |
 | **LEDs 0–3**    | A trigger · B trigger · A complement · B complement           |
-| **LEDs 4–5**    | Edit indicator (4 = editing A, 5 = editing B, both off = lock) |
+| **LEDs 4–5**    | 4 = editing A, 5 = editing B; both flash on each tempo tap    |
 
 **The four trigger tracks.** Each channel gives you *two* rhythms for free: the
 pattern on its Pulse output, and its **complement** (every step that is *not* a hit)
@@ -125,20 +125,31 @@ anything else that should change in lock-step with the rhythm.
 
 ## Editing patterns from the module
 
-Set the **switch** to choose which channel the knobs edit:
+The **switch** has three positions:
 
 - **Up** — edit channel A (LED 4 lights)
-- **Down** — edit channel B (LED 5 lights)
-- **Middle** — locked: the knobs do nothing, so you can perform without
-  accidentally changing anything (both LEDs off)
+- **Middle** — edit channel B (LED 5 lights)
+- **Down** — tap tempo (see below); the knobs don't edit here
 
-While editing, the three knobs set **Fills** (Main), **Steps** (X) and **Rotation**
-(Y) for that channel.
+While editing (Up or Middle), the three knobs set **Fills** (Main), **Steps** (X)
+and **Rotation** (Y) for that channel.
 
 **Soft pickup.** When you flip the switch to the other channel, the knobs don't
 snap that channel's values to wherever the knobs happen to be sitting. Each knob
 stays inactive until you actually move it, then it takes over smoothly. This lets
 you flip between A and B without values jumping.
+
+### Clock &amp; tap tempo
+
+Euclid4 has its own internal clock, and it also follows an external one:
+
+- **Tap tempo** — with the switch **Down**, flick it down in time with the beat.
+  Two or more taps set the internal step rate (each flick nudges the clock in
+  phase, and LEDs 4/5 blink on every tap). The internal clock free-runs, so the
+  card plays standalone with no patching.
+- **External clock** — patch a clock into **Pulse In 1** and it takes over
+  automatically; the internal clock steps back in while external pulses are
+  arriving and resumes if they stop. **Pulse In 2** still resets both channels.
 
 ---
 

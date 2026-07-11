@@ -18,7 +18,7 @@
 <rect x="34" y="258" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
 <rect x="34" y="258" width="4" height="30" rx="2" fill="#3fb950"/>
 <text x="48" y="278" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Switch</text>
-<text x="174" y="278" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Up: edit A · Mid: lock · Down: edit B</text>
+<text x="174" y="278" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Up: A · Mid: B · Down: tap tempo</text>
 <rect x="34" y="298" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
 <rect x="34" y="298" width="4" height="30" rx="2" fill="#3fb950"/>
 <text x="48" y="318" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">LEDs 0–5</text>
@@ -27,7 +27,7 @@
 <rect x="34" y="378" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
 <rect x="34" y="378" width="4" height="30" rx="2" fill="#a371f7"/>
 <text x="48" y="398" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Pulse In 1</text>
-<text x="174" y="398" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">Clock — advances A and B</text>
+<text x="174" y="398" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" fill="#8b949e" text-anchor="start" font-weight="400" letter-spacing="0">External clock (overrides internal)</text>
 <rect x="34" y="418" width="126" height="30" rx="7" fill="#1c232d" stroke="#2b333e" stroke-width="1"/>
 <rect x="34" y="418" width="4" height="30" rx="2" fill="#a371f7"/>
 <text x="48" y="438" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12.5" fill="#e6edf3" text-anchor="start" font-weight="600" letter-spacing="0">Pulse In 2</text>

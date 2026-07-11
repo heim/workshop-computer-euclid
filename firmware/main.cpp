@@ -189,6 +189,12 @@ public:
 	virtual void ProcessSample() override
 	{
 		bool changed = false;
+		sampleCounter++;
+
+		// Tap tempo: en flikk ned i Down-posisjon registrerer et tap
+		Switch sw = SwitchVal();
+		if (sw == Down && lastSwitchPos != Down) RegisterTap();
+		lastSwitchPos = sw;
 
 		// USB-skriv (core1 -> core0) plukkes opp først. Deretter kjører
 		// knott-håndteringen; "sist skrevne verdi vinner" (knott eller USB)
@@ -201,10 +207,31 @@ public:
 		{
 			chA.currentStep = 0;
 			chB.currentStep = 0;
+			internalCounter = 0;   // synk intern klokke til reset
 			changed = true;
 		}
 
+		// Klokkekilde: ekstern (Pulse In 1) overstyrer den interne tap-klokka.
+		// Kommer det eksterne kanter, brukes de; ellers løper intern-klokka fritt.
+		bool tick = false;
 		if (PulseIn1RisingEdge())
+		{
+			lastExtEdge = sampleCounter;
+			extEverSeen = true;
+			internalCounter = 0;   // hold intern fase nullet mens ekstern styrer
+			tick = true;
+		}
+		else if (extEverSeen && (uint32_t)(sampleCounter - lastExtEdge) < kExtClockTimeout)
+		{
+			internalCounter = 0;   // ekstern klokke fortsatt aktiv -> intern undertrykt
+		}
+		else if (++internalCounter >= internalPeriod)
+		{
+			internalCounter = 0;
+			tick = true;           // intern klokke-tick
+		}
+
+		if (tick)
 		{
 			bool hitA = chA.Advance();
 			bool hitB = chB.Advance();
@@ -243,11 +270,20 @@ public:
 		if (compA > 0) compA--;
 		if (compB > 0) compB--;
 
-		// LEDs
+		// LEDs 0-3: A/B-trigger og A/B-komplement
 		LedOn(0, trigA > 0);
 		LedOn(1, trigB > 0);
 		LedOn(2, compA > 0);
 		LedOn(3, compB > 0);
+
+		// I tap-modus (Down) blinker redigerings-LED-ene ved hvert tap
+		if (sw == Down)
+		{
+			bool f = tapFlash > 0;
+			LedOn(4, f);
+			LedOn(5, f);
+		}
+		if (tapFlash > 0) tapFlash--;
 
 		// Publiser til core1 (for GET/push) når noe endret seg. core1 oppdager
 		// endringen via snapSeq og sender (strupet) én JSON-linje.
@@ -259,15 +295,34 @@ private:
 	static constexpr int kMaxSteps = 16;
 	static constexpr int32_t kPickupThreshold = 100; // av 4096
 
+	// Intern klokke (fritt løpende når ingen ekstern klokke er aktiv).
+	// Én tick = ett steg. Tap tempo setter perioden (samples mellom steg).
+	static constexpr uint32_t kDefaultStepSamples = 12000; // 250 ms/steg @ 48 kHz
+	static constexpr uint32_t kMinStepSamples     = 2400;  // ~50 ms  (raskeste tap)
+	static constexpr uint32_t kMaxStepSamples     = 96000; // ~2 s    (tregeste tap)
+	static constexpr uint32_t kExtClockTimeout    = 120000;// 2.5 s uten ekstern kant -> intern overtar
+
 	EuclidChannel chA, chB;
 	int trigA = 0, trigB = 0, compA = 0, compB = 0;
 	uint32_t rngState;
 
 	// Soft pickup-tilstand
 	Switch lastEditSwitch = Middle;
+	bool editFrozenOnce = false;       // sikrer at knottene fryses ved første redigering
 	int32_t knobRef[3] = {-1, -1, -1}; // posisjon ved kanalbytte, -1 = aktiv
 	int lastZone[3] = {0, 0, 0};
 	int knobOut[3] = {-1, -1, -1};     // sist verdi hver knott faktisk drev (fills,steps,rot)
+
+	// Klokke-/tap-tilstand
+	uint32_t sampleCounter = 0;                 // fritt løpende sample-teller
+	uint32_t internalPeriod = kDefaultStepSamples;
+	uint32_t internalCounter = 0;
+	uint32_t lastExtEdge = 0;                   // sampleCounter ved siste Pulse In 1-kant
+	bool extEverSeen = false;
+	uint32_t lastTap = 0;                       // sampleCounter ved forrige tap
+	bool tapValid = false;
+	int tapFlash = 0;                           // LED-blink ved tap
+	Switch lastSwitchPos = Middle;              // for å oppdage flikk til Down
 
 	// xorshift32, skalert til -2047..2047 for CVOut
 	int16_t NextRandom()
@@ -365,21 +420,22 @@ private:
 	{
 		Switch sw = SwitchVal();
 
-		// Midtstilling = låst
-		if (sw == Middle)
+		// Down = tap tempo: knottene redigerer ikke (LED 4/5 styres i ProcessSample)
+		if (sw == Down)
 		{
-			lastEditSwitch = Middle;
-			LedOff(4);
-			LedOff(5);
+			lastEditSwitch = Down;
 			return false;
 		}
 
+		// Up = rediger A, Middle = rediger B
 		EuclidChannel &ch = (sw == Up) ? chA : chB;
 		LedOn(4, sw == Up);
-		LedOn(5, sw == Down);
+		LedOn(5, sw == Middle);
 
-		// Ved kanalbytte: frys knottene til de flyttes
-		if (sw != lastEditSwitch)
+		// Ved kanalbytte — eller aller første redigering — frys knottene til de
+		// flyttes. editFrozenOnce trengs fordi Middle nå redigerer (før returnerte
+		// den tidlig), så uten den ville knottene gripe kanal B på første sample.
+		if (!editFrozenOnce || sw != lastEditSwitch)
 		{
 			knobRef[0] = KnobVal(Knob::Main);
 			knobRef[1] = KnobVal(Knob::X);
@@ -391,6 +447,7 @@ private:
 			knobOut[1] = ch.steps;
 			knobOut[2] = ch.rotation;
 			lastEditSwitch = sw;
+			editFrozenOnce = true;
 		}
 
 		// Aktiver knott når den har flyttet seg nok
@@ -435,6 +492,21 @@ private:
 			if (ch.currentStep >= ch.steps) ch.currentStep = 0;
 		}
 		return changed;
+	}
+
+	// Registrerer et tap (flikk ned). To gyldige tap etter hverandre setter
+	// intern-klokkas periode (samples mellom steg) og faser den til tapet.
+	void RegisterTap()
+	{
+		uint32_t interval = sampleCounter - lastTap;
+		if (tapValid && interval >= kMinStepSamples && interval <= kMaxStepSamples)
+		{
+			internalPeriod = interval;
+			internalCounter = 0;
+		}
+		lastTap = sampleCounter;
+		tapValid = true;
+		tapFlash = kTrigSamples;
 	}
 };
 
